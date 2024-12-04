@@ -30,3 +30,9 @@ Route::post('/validar-login',  [AuthController::class, 'validarLogin'])->name('v
 Route::middleware('auth')->group(function () {
 
 });
+
+// .......... ADMIN ..........
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    
+});
