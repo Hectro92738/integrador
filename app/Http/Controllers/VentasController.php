@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\In_articulo;
 use App\Models\In_venta;
 use App\Models\In_detalleventa;
+use Carbon\Carbon;
 
 class VentasController extends Controller
 {
@@ -50,7 +51,7 @@ class VentasController extends Controller
             $venta->idusuario = Auth::user()->idusuario;
             $venta->tipo_comprobante = $request->tipo_comprobante;
             $venta->num_comprobante = 'HR565';
-            $venta->fecha_hora = now();
+            $venta->fecha_hora = Carbon::now('America/Mexico_City');
             $venta->impuesto = $request->impuesto;
             $venta->total = $request->total;
             $venta->estado = $request->estado;
