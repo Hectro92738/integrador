@@ -26,6 +26,7 @@ Route::get('/', function () {
 // envio parametros de login 
 
 Route::post('/validar-login',  [AuthController::class, 'validarLogin'])->name('validarLogin');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
 

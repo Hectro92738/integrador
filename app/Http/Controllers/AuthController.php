@@ -45,4 +45,14 @@ class AuthController extends Controller
             return redirect()->back()->with('error', 'Ocurrió un error inesperado. Intenta nuevamente.');
         }
     }
+
+    public function logout()
+    {
+        if (Auth::check()) {
+            Auth::logout();
+            return redirect('/')->with('error', 'Sesión invalida');
+        } else {
+            return redirect('/')->with('error', 'Sesión invalida');
+        }
+    }
 }
