@@ -26,3 +26,13 @@ Route::get('/', function () {
 // envio parametros de login 
 
 Route::post('/validar-login',  [AuthController::class, 'validarLogin'])->name('validarLogin');
+
+Route::middleware('auth')->group(function () {
+
+});
+
+// .......... ADMIN ..........
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    
+});
