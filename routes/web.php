@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\VentasController;
 
 
 /*
@@ -29,7 +30,9 @@ Route::post('/validar-login',  [AuthController::class, 'validarLogin'])->name('v
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
-
+    Route::get('/detalle-venta/{id}', [VentasController::class, 'detalleVenta'])->name('detalleVenta');
+    Route::get('/status-articulo/{id}', [VentasController::class, 'statusArticulo'])->name('statusArticulo');
+    Route::post('/insert-venta', [VentasController::class, 'insertVenta'])->name('insertVenta');
 });
 
 // .......... ADMIN ..........
