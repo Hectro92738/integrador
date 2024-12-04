@@ -64,15 +64,7 @@ class ViewController extends Controller
         return view('admin.gestionproducto');
     }
 
-    public function logout()
-    {
-        if (Auth::check()) {
-            Auth::logout();
-            return redirect('/')->with('error', 'Sesión invalida');
-        } else {
-            return redirect('/')->with('error', 'Sesión invalida');
-        }
-    }
+
     
 
 }
