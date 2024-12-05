@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\VentasController;
+use App\Http\Controllers\ViewController;
+use App\Http\Controllers\PersonasController;
+use App\Http\Controllers\ArticuloController;
 
 
 /*
