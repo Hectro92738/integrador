@@ -64,6 +64,20 @@ class ViewController extends Controller
         return view('admin.gestionproducto');
     }
 
+    public function viewingresos(){
+        if (!Auth::check()) {
+            return redirect('/')->with('error', 'Sesión inválida');
+        }
+
+        // Cargar ingresos con las relaciones
+        $ingresos = In_ingreso::with([
+            'persona',      // Relación con proveedor (persona)
+            'usuario',      // Relación con usuario
+            'detalleingresos.articulo.categoria' // Relación con detalle_ingreso, artículo y categoría
+        ])->get();
+
+        return view('encargado.ingresos', compact('ingresos'));
+    }
 
     
 

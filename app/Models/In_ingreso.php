@@ -28,7 +28,7 @@ class In_ingreso extends Model
     protected $primaryKey = 'idingreso';
     public $timestamps = false;
 
-    
+
     // Relación con persona
 
     public function persona()
@@ -36,12 +36,17 @@ class In_ingreso extends Model
         // id de la tabla modelo, id tabla foranea
         return $this->belongsTo(In_persona::class, 'idproveedor', 'idpersona');
     }
-    
+
     // Relación con usuario
 
     public function usuario()
     {
         // id de la tabla modelo, id tabla foranea
         return $this->belongsTo(In_usuario::class, 'idusuario', 'idusuario');
+    }
+    public function detalleingresos()
+    {
+        // Relación uno a muchos (un ingreso tiene muchos detalles de ingreso)
+        return $this->hasMany(In_detalleingreso::class, 'idingreso', 'idingreso');
     }
 }

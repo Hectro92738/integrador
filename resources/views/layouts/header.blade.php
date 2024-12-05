@@ -91,19 +91,14 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li class="nav-item">
-                                        <a class="dropdown-item" href="{{ route('gestionProductos') }}">
-                                            <i class="bi bi-box-arrow-in-down"></i> Ingresar producto</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item" href="{{ route('gestionProductos') }}">
+                                        <a class="dropdown-item" href="{{ route('viewpersonas') }}">
                                             <i class="bi bi-person-down"></i> Personas</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" href="{{ route('ingresos.view') }}">
+                                            <i class="bi bi-boxes"></i> Articulos</a>
+                                    </li>
                                     @if (Auth::user()->rol->role == 'admin')
-                                        <li class="nav-item">
-                                            <a class="dropdown-item" href="{{ route('gestionProductos') }}">
-                                                <i class="bi bi-person-fill-add"></i> Ingresar usuario
-                                            </a>
-                                        </li>
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
