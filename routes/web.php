@@ -49,10 +49,7 @@ Route::middleware('auth')->group(function () {
 // .......... ADMIN ..........
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/gestion-productos', [ViewController::class, 'gestionProductos'])->name('gestionProductos');
-
-    Route::get('/view-ingresos', [ViewController::class, 'viewingresos'])->name('ingresos.view');
-    
+    Route::get('/gestion-productos', [ViewController::class, 'gestionProductos'])->name('gestionProductos');    
 });
 
 
@@ -61,6 +58,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::middleware(['role:encargado, admin', 'auth'])->group(function () {
     Route::get('/view-personas', [ViewController::class, 'viewpersonas'])->name('viewpersonas');
 
+    //Ver ingresos
+    Route::get('/view-ingresos', [ViewController::class, 'viewingresos'])->name('ingresos.view');
+    
     // Crear una nueva persona
     Route::get('/personas/create', [PersonasController::class, 'create'])->name('personas.create');
     Route::post('/personas/store', [PersonasController::class, 'store'])->name('personas.store');

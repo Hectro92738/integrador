@@ -12,6 +12,7 @@ use App\Models\In_articulo;
 use App\Models\In_persona;
 use App\Models\In_venta;
 use App\Models\In_detalleventa;
+use App\Models\In_ingreso;
 
 class ViewController extends Controller
 {
