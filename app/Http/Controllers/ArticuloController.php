@@ -118,12 +118,60 @@ class ArticuloController extends Controller
         return redirect()->route('inicio', $id)->with('success', 'Artículo actualizado exitosamente');
     }
 
+    public function storeStock(Request $request, $idarticulo)
+    {
+        $request->validate([
+            'cantidad' => 'required|integer|min:1',
+        ]);
 
-    // ------ 
-    // ------ 
-    
-    // PARTICIÓN 
-    
-    // ------ 
-    // ------ 
+        try {
+            // Iniciar la transacción
+            DB::beginTransaction();
+
+            // Obtener el artículo
+            $articulo = In_articulo::findOrFail($idarticulo);
+
+            // Obtener el proveedor asociado al artículo
+            $detalleIngreso = $articulo->detalleingresos()->first();
+            if (!$detalleIngreso || !$detalleIngreso->ingreso || !$detalleIngreso->ingreso->persona) {
+                return redirect()->back()->with('error', 'No se encontró un proveedor relacionado con este artículo.');
+            }
+
+            $proveedor = $detalleIngreso->ingreso->persona;
+
+            // Crear el registro en la tabla `ingreso`
+            $ingreso = In_ingreso::create([
+                'idproveedor' => $proveedor->idpersona, // Proveedor asociado
+                'idusuario' => Auth::user()->idusuario,
+                'tipo_comprobante' => 'Ingreso de Stock',
+                'serie_comprobante' => 'STOCK',
+                'num_comprobante' => now()->timestamp,
+                'fecha' => now(),
+                'impuesto' => 0,
+                'total' => $request->cantidad * $articulo->precio_venta,
+                'estado' => 'Activo',
+            ]);
+
+            // Crear el registro en la tabla `detalle_ingreso`
+            In_detalleingreso::create([
+                'idingreso' => $ingreso->idingreso,
+                'idarticulo' => $articulo->idarticulo,
+                'cantidad' => $request->cantidad,
+                'precio' => $articulo->precio_venta,
+            ]);
+
+            // Actualizar el stock del artículo
+            $articulo->increment('stock', $request->cantidad);
+
+            // Confirmar la transacción
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Stock ingresado correctamente.');
+        } catch (\Exception $e) {
+            // Revertir en caso de error
+            DB::rollBack();
+
+            return redirect()->back()->with('error', 'Ocurrió un error: ' . $e->getMessage());
+        }
+    }
 }
