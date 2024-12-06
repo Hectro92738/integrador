@@ -11,4 +11,7 @@ $(document).ready(function () {
     showAlert('.alert_Error');
     showAlert('.alert_Warning');
     showAlert('.alert_Success');
+
+    console.log( "hola")
+
 });
