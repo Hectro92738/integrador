@@ -4,10 +4,25 @@
     {{-- <script src="{{ asset('js/login.js') }}"></script> --}}
 @endsection
 @section('content')
-    <div class="container mt-2">
-
-        <h1>Artículos en existencia</h1>
-
+    <div class="container mt-3">
+        <div class="grid">
+            <div class="row">
+                <div class="col-md">
+                    <h1>Artículos en existencia</h1>
+                </div>
+                <div class="col-md text-end mt-2">
+                    @if (Auth::check())
+                        @if (Auth::user()->rol->role == 'encargado' || Auth::user()->rol->role == 'admin')
+                            <a href="{{ route('articulos.create') }}" class="btn btn-primary">
+                                <i class="bi bi-plus-lg"></i>
+                                Agregar nuevo artículo
+                            </a>
+                        @endif
+                    @endif
+                </div>
+            </div>
+        </div>
+        <hr>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -41,6 +56,11 @@
                             <td>
                                 <a href="{{ url('/status-articulo/' . $articulo->idarticulo) }}" class="btn ms-3">
                                     <i class="bi {{ $articulo->estado == 1 ? 'bi-toggle-on' : 'bi-toggle-off' }}"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ route('articulos.edit', $articulo->idarticulo) }}" class="btn btn-success">
+                                    Editar
                                 </a>
                             </td>
                         @endif
