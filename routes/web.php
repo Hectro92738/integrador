@@ -49,10 +49,7 @@ Route::middleware('auth')->group(function () {
 // .......... ADMIN ..........
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/gestion-productos', [ViewController::class, 'gestionProductos'])->name('gestionProductos');
-
-    Route::get('/view-ingresos', [ViewController::class, 'viewingresos'])->name('ingresos.view');
-    
+    Route::get('/gestion-productos', [ViewController::class, 'gestionProductos'])->name('gestionProductos');    
 });
 
 
@@ -60,6 +57,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 Route::middleware(['role:encargado, admin', 'auth'])->group(function () {
     Route::get('/view-personas', [ViewController::class, 'viewpersonas'])->name('viewpersonas');
+
+    //Ver ingresos
+    Route::get('/view-ingresos', [ViewController::class, 'viewingresos'])->name('ingresos.view');
 
     // Crear una nueva persona
     Route::get('/personas/create', [PersonasController::class, 'create'])->name('personas.create');
@@ -77,4 +77,9 @@ Route::middleware(['role:encargado, admin', 'auth'])->group(function () {
     Route::post('/articulos/store', [ArticuloController::class, 'store'])->name('articulos.store');
     Route::get('/articulos/edit/{id}', [ArticuloController::class, 'edit'])->name('articulos.edit');
     Route::put('/articulos/update/{id}', [ArticuloController::class, 'update'])->name('articulos.update');
+    Route::post('/stock/{idarticulo}', [ArticuloController::class, 'storeStock'])->name('stock.store');
+
+
+    // cambia esta ruta a  role encargado ⬇️
+    Route::get('/view-ingresos', [ViewController::class, 'viewingresos'])->name('ingresos.view');
 });

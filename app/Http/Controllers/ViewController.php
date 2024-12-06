@@ -12,6 +12,7 @@ use App\Models\In_articulo;
 use App\Models\In_persona;
 use App\Models\In_venta;
 use App\Models\In_detalleventa;
+use App\Models\In_ingreso;
 
 class ViewController extends Controller
 {
@@ -78,8 +79,15 @@ class ViewController extends Controller
 
         return view('encargado.ingresos', compact('ingresos'));
     }
+    public function viewpersonas()
+    {
 
-    
+        if (!Auth::check()) {
+            return redirect('/')->with('error', 'Sesión inválida');
+        }
 
+        $personas = In_persona::get();
+
+        return view('encargado.personas', compact('personas'));
+    }
 }
-

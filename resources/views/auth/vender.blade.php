@@ -5,6 +5,7 @@
 @endsection
 @section('content')
 
+
     <div class="container mt-2">
         <h2>Hacer Venta</h2>
 
@@ -14,7 +15,7 @@
                 <!-- Cliente -->
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="idcliente">Cliente</label>
+                        <label for="idcliente"><strong>Cliente</strong></label>
                         <select name="idcliente" id="idcliente" class="form-control input_all" required>
                             <option value="">Seleccionar Cliente</option>
                             @foreach ($clientes as $cliente)
@@ -26,7 +27,7 @@
                 <!-- Usuario -->
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="idusuario">Vendedor</label>
+                        <label for="idusuario"><strong>Vendedor</strong></label>
                         <input type="text" name="idusuario" id="idusuario" value="{{ Auth::user()->nombre }}"
                             class="form-control input_all" disabled>
                     </div>
@@ -37,7 +38,7 @@
                 <!-- Tipo de Comprobante -->
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="tipo_comprobante">Tipo de Comprobante</label>
+                        <label for="tipo_comprobante"><strong>Tipo de Comprobante</strong></label>
                         <select name="tipo_comprobante" id="tipo_comprobante" class="form-control input_all" required>
                             <option value="Factura">Factura</option>
                             <option value="Boleta">Boleta</option>
@@ -48,7 +49,7 @@
                 <!-- Estado -->
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="estado">Estado</label>
+                        <label for="estado"><strong>Estado</strong></label>
                         <select name="estado" id="estado" class="form-control input_all" required>
                             <option value="1">Activo</option>
                             <option value="0">Inactivo</option>
@@ -59,76 +60,76 @@
 
             <!-- Seleccionar productos con checkboxes -->
             <div class="row mt-3">
-                <div class="row mt-3">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="articulos">Seleccionar Productos</label><br>
-                            <!-- Campo de búsqueda -->
-                            <div class="row">
-                                <div class="col-md">
-                                    <input type="text" id="productSearch" class="form-control input_all"
-                                        placeholder="Buscar productos..." onkeyup="filterProducts()">
-                                </div>
-                                <div class="col-md">
-                                    <i class="bi bi-search"></i>
-                                </div>
+                <div class="col-md-6 contenedor_prod">
+                    <div class="form-group">
+                        <label for="articulos"><strong>Seleccionar Productos</strong></label><br>
+                        <!-- Campo de búsqueda -->
+                        <div class="row">
+                            <div class="col-md">
+                                <input type="text" id="productSearch" class="form-control input_all"
+                                    placeholder="Buscar productos..." onkeyup="filterProducts()">
+                            </div>
+                            <div class="col-md">
+                                <i class="bi bi-search"></i>
                             </div>
                         </div>
-                        <div style="max-width: 900px; overflow-y: auto; max-height: 400px;" class="mt-2">
-                            @foreach ($articulos as $articulo)
-                                <div class="form-check producto-item mt-5">
-                                    <input class="form-check-input" type="checkbox" name="articulos[]"
-                                        value="{{ $articulo->idarticulo }}" id="articulo_{{ $articulo->idarticulo }}"
-                                        onclick="updateTable()">
-                                    <label class="form-check-label" for="articulo_{{ $articulo->idarticulo }}">
-                                        {{ $articulo->nombre }} - ${{ number_format($articulo->precio_venta, 2) }}
-                                    </label>
-
-                                    <!-- Campo de cantidad como select -->
-                                    <div class="mt-2">
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                <label for="cantidad_{{ $articulo->idarticulo }}"
-                                                    class="mt-3">Cantidad</label>
-                                            </div>
-                                            <div class="col-md">
-                                                <select name="cantidad[{{ $articulo->idarticulo }}]"
-                                                    id="cantidad_{{ $articulo->idarticulo }}"
-                                                    class="form-control input_all cantidad" style="width: 50px"
-                                                    onchange="updateTable()">
-                                                    @for ($i = 1; $i <= $articulo->stock; $i++)
-                                                        <option value="{{ $i }}"
-                                                            {{ $i == 1 ? 'selected' : '' }}>
-                                                            {{ $i }}</option>
-                                                    @endfor
-                                                </select>
+                    </div>
+                    <div style="max-height: 200px; overflow-y: auto;" class="mt-2 contenedor_productos_venta">
+                        @foreach ($articulos as $articulo)
+                            <div style="width: 500px" class="mt-2 producto-item ">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <input class="form-check-input" type="checkbox" name="articulos[]"
+                                            value="{{ $articulo->idarticulo }}" id="articulo_{{ $articulo->idarticulo }}"
+                                            onclick="updateTable()">
+                                        <label class="form-check-label" for="articulo_{{ $articulo->idarticulo }}">
+                                            {{ $articulo->nombre }} - ${{ number_format($articulo->precio_venta, 2) }}
+                                        </label>
+                                        <div class="mt-0">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <label for="cantidad_{{ $articulo->idarticulo }}"
+                                                        class="mt-3">Cantidad</label>
+                                                </div>
+                                                <div class="col-md">
+                                                    <select name="cantidad[{{ $articulo->idarticulo }}]"
+                                                        id="cantidad_{{ $articulo->idarticulo }}"
+                                                        class="form-control input_all cantidad" style="width: 60px"
+                                                        onchange="updateTable()">
+                                                        @for ($i = 1; $i <= $articulo->stock; $i++)
+                                                            <option value="{{ $i }}"
+                                                                {{ $i == 1 ? 'selected' : '' }}>
+                                                                {{ $i }}</option>
+                                                        @endfor
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
-                        </div>
-                        <small class="form-text text-muted mt-2">Selecciona uno o más productos.</small>
+                            </div>
+                        @endforeach
                     </div>
+                    <small class="form-text text-muted mt-2">Selecciona uno o más productos.</small>
+                </div>
 
-                    <!-- Columna para mostrar los productos seleccionados y calcular el total -->
-                    <div class="col-md-6">
-                        <h4>Productos Seleccionados</h4>
-                        <table id="selectedProductsTable" class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Producto</th>
-                                    <th>Cantidad</th>
-                                    <th>Precio Unitario</th>
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Productos seleccionados se mostrarán aquí -->
-                            </tbody>
-                        </table>
-                        <h5>Subtotal: <span id="totalPrice">$0.00</span></h5>
-                    </div>
+                <!-- Columna para mostrar los productos seleccionados y calcular el total -->
+                <div class="col-md-6">
+                    <h4>Productos Seleccionados</h4>
+                    <table id="selectedProductsTable" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio Unitario</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Productos seleccionados se mostrarán aquí -->
+                        </tbody>
+                    </table>
+                    <h5>Subtotal: <span id="totalPrice">$0.00</span></h5>
                 </div>
             </div>
 
@@ -136,7 +137,7 @@
                 <!-- Impuesto -->
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="impuesto">Impuesto (%)</label>
+                        <label for="impuesto"><strong>Impuesto (%)</strong></label>
                         <input type="number" name="impuesto" id="impuesto" class="form-control input_all" required
                             disabled step="0.01" min="0" readonly>
                         <input type="hidden" name="impuesto" id="hidden_impuesto" value="">
@@ -145,7 +146,7 @@
                 <!-- Total -->
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="total">Total</label>
+                        <label for="total"><strong>Total</strong></label>
                         <input type="number" name="total" id="total" class="form-control input_all" required
                             disabled step="0.01" min="0" readonly>
                         <input type="hidden" name="total" id="hidden_total" value="">
