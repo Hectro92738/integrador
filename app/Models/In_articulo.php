@@ -33,4 +33,16 @@ class In_articulo extends Model implements AuthenticatableContract
         // id de la tabla modelo, id tabla foranea 
         return $this->belongsTo(In_categoria::class, 'idcategoria', 'idcategoria');
     }
+
+    
+    // Para las relaciones donde este modelo es la Primary Key - - puede ser: relación uno a muchos  ⬇️
+    public function detalleventa()
+    {
+        return $this->hasMany(In_detalleventa::class, 'idarticulo', 'idarticulo');
+    }
+
+    public function detalleingresos()
+    {
+        return $this->hasMany(In_detalleingreso::class, 'idarticulo', 'idarticulo');
+    }
 }
