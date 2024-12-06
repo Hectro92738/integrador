@@ -34,7 +34,7 @@ class In_articulo extends Model implements AuthenticatableContract
         return $this->belongsTo(In_categoria::class, 'idcategoria', 'idcategoria');
     }
 
-    
+        
     // Para las relaciones donde este modelo es la Primary Key - - puede ser: relación uno a muchos  ⬇️
     public function detalleventa()
     {
