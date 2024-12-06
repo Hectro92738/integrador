@@ -27,7 +27,7 @@ class In_venta extends Model
     protected $primaryKey = 'idventa';
     public $timestamps = false;
 
-    
+
     // Relación con persona
 
     public function persona()
@@ -35,12 +35,18 @@ class In_venta extends Model
         // id de la tabla modelo, id tabla foranea 
         return $this->belongsTo(In_persona::class, 'idcliente', 'idpersona');
     }
-    
+
     // Relación con usuario
 
     public function usuario()
     {
         // id de la tabla modelo, id tabla foranea 
         return $this->belongsTo(In_usuario::class, 'idusuario', 'idusuario');
+    }
+
+    // Para las relaciones donde este modelo es la Primary Key - - puede ser: relación uno a muchos  ⬇️
+    public function detalleventa()
+    {
+        return $this->hasMany(In_detalleventa::class, 'idventa', 'idventa');
     }
 }
