@@ -35,4 +35,17 @@ class In_usuario extends Model implements AuthenticatableContract
         // id de la tabla modelo, id tabla foranea 
         return $this->belongsTo(In_rol::class, 'idusuario', 'idrol');
     }
+    // Para las relaciones donde este modelo es la Primary Key - - puede ser: relación uno a muchos 
+    public function venta()
+    {
+        // Relación uno a muchos 
+        return $this->hasMany(In_venta::class, 'idusuario', 'idusuario');
+    }
+    
+    public function ingresos()
+    {
+        // Relación uno a muchos 
+        return $this->hasMany(In_ingreso::class, 'idusuario', 'idusuario');
+    }
+
 }
