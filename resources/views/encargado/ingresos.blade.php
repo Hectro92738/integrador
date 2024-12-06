@@ -10,9 +10,8 @@
                     <th>Proveedor</th>
                     <th>Usuario</th>
                     <th>Fecha</th>
-                    <th>Comprobante</th>
+                    {{-- <th>Comprobante</th> --}}
                     <th>Total</th>
-                    <th>Estado</th>
                     <th>Detalle</th>
                 </tr>
             </thead>
@@ -23,20 +22,22 @@
                         <td>{{ $ingreso->persona->nombre }}</td>
                         <td>{{ $ingreso->usuario->nombre }}</td>
                         <td>{{ $ingreso->fecha }}</td>
-                        <td>{{ $ingreso->tipo_comprobante }} - {{ $ingreso->serie_comprobante }}{{ $ingreso->num_comprobante }}</td>
+                        {{-- <td>{{ $ingreso->tipo_comprobante }} -
+                            {{ $ingreso->serie_comprobante }}{{ $ingreso->num_comprobante }}</td> --}}
                         <td>${{ number_format($ingreso->total, 2) }}</td>
-                        <td>{{ $ingreso->estado }}</td>
                         <td>
-                            <ul>
+                            <div style="max-height: 200px; overflow-y: auto;" class="mt-2 contenedor_productos_venta">
                                 @foreach ($ingreso->detalleingresos as $detalle)
-                                    <li>
-                                        Artículo: {{ $detalle->articulo->nombre }} <br>
-                                        Cantidad: {{ $detalle->cantidad }} <br>
-                                        Precio: ${{ number_format($detalle->precio, 2) }} <br>
-                                        Categoría: {{ $detalle->articulo->categoria->nombre }}
-                                    </li>
+                                    <div class="card mt-1">
+                                        <div class="card-body">
+                                            <strong>Artículo:</strong> {{ $detalle->articulo->nombre }} <br>
+                                            <strong>Cantidad:</strong> {{ $detalle->cantidad }} <br>
+                                            <strong>Precio:</strong> ${{ number_format($detalle->precio, 2) }} <br>
+                                            <strong>Categoría:</strong> {{ $detalle->articulo->categoria->nombre }}
+                                        </div>
+                                    </div>
                                 @endforeach
-                            </ul>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

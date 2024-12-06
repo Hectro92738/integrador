@@ -127,4 +127,20 @@ class VentasController extends Controller
 
         return redirect()->back()->with('success', 'Estado del artículo actualizado');
     }
+
+    public function getVentaData($ventaId)
+    {
+        // Obtener la venta junto con los detalles utilizando 'first()' para obtener un solo registro
+        $venta = In_venta::with(['persona', 'usuario', 'detalleventa.articulo'])->where('idventa', $ventaId)->first();
+
+        if (!$venta) {
+            return response()->json(['status' => 'error', 'message' => 'Venta no encontrada.']);
+        }
+
+        // Devolver los datos de la venta
+        return response()->json([
+            'status' => 'success',
+            'venta' => $venta,
+        ]);
+    }
 }

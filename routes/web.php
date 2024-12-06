@@ -7,6 +7,7 @@ use App\Http\Controllers\VentasController;
 use App\Http\Controllers\ViewController;
 use App\Http\Controllers\PersonasController;
 use App\Http\Controllers\ArticuloController;
+use App\Http\Controllers\GestionController;
 
 
 /*
@@ -41,7 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/inicio', [ViewController::class, 'inicio'])->name('inicio');
     Route::get('/vender', [ViewController::class, 'vender'])->name('vender');
     Route::get('/ventas', [ViewController::class, 'ventas'])->name('ventas');
-
+    Route::get('/venta/{ventaId}', [VentasController::class, 'getVentaData'])->name('venta.ticket');
 
     
 });
@@ -49,7 +50,12 @@ Route::middleware('auth')->group(function () {
 // .......... ADMIN ..........
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/gestion-productos', [ViewController::class, 'gestionProductos'])->name('gestionProductos');    
+    Route::get('/gestion-productos', [ViewController::class, 'gestionProductos'])->name('gestionProductos');
+    
+    // Graficas
+    Route::get('/ventas-datos', [GestionController::class, 'obtenerVentas'])->name('ventas.datos');
+    Route::get('/usuarios-ventas', [GestionController::class, 'ventasPorUsuario'])->name('usuarios.ventas');
+    Route::get('/articulos-mas-vendidos', [GestionController::class, 'articulosMasVendidos'])->name('articulos.vendidos');
 });
 
 
