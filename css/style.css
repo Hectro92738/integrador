@@ -164,6 +164,20 @@
   border-radius: 0 !important;
 }
 
+.input_all:hover {
+  border-bottom: 1px solid #085dccfa !important;
+}
+
+.contenedor_prod {
+  background-color: #208bd622;
+  padding: 5px;
+  border: 1px solid #0889b4b7;
+}
+
+.contenedor_productos_venta {
+  border: 1px solid #00000046 !important;
+  padding: 5px;
+}
 
 
 
