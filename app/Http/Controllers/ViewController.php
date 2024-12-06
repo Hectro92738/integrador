@@ -91,4 +91,3 @@ class ViewController extends Controller
         return view('encargado.personas', compact('personas'));
     }
 }
-

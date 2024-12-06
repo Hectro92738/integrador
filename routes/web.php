@@ -60,7 +60,7 @@ Route::middleware(['role:encargado, admin', 'auth'])->group(function () {
 
     //Ver ingresos
     Route::get('/view-ingresos', [ViewController::class, 'viewingresos'])->name('ingresos.view');
-    
+
     // Crear una nueva persona
     Route::get('/personas/create', [PersonasController::class, 'create'])->name('personas.create');
     Route::post('/personas/store', [PersonasController::class, 'store'])->name('personas.store');
@@ -77,4 +77,9 @@ Route::middleware(['role:encargado, admin', 'auth'])->group(function () {
     Route::post('/articulos/store', [ArticuloController::class, 'store'])->name('articulos.store');
     Route::get('/articulos/edit/{id}', [ArticuloController::class, 'edit'])->name('articulos.edit');
     Route::put('/articulos/update/{id}', [ArticuloController::class, 'update'])->name('articulos.update');
+    Route::post('/stock/{idarticulo}', [ArticuloController::class, 'storeStock'])->name('stock.store');
+
+
+    // cambia esta ruta a  role encargado ⬇️
+    Route::get('/view-ingresos', [ViewController::class, 'viewingresos'])->name('ingresos.view');
 });
