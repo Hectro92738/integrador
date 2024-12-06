@@ -79,8 +79,16 @@ class ViewController extends Controller
 
         return view('encargado.ingresos', compact('ingresos'));
     }
+    public function viewpersonas()
+    {
 
-    
+        if (!Auth::check()) {
+            return redirect('/')->with('error', 'Sesión inválida');
+        }
 
+        $personas = In_persona::get();
+
+        return view('encargado.personas', compact('personas'));
+    }
 }
 
